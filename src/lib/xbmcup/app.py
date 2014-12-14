@@ -13,6 +13,8 @@ import xbmcgui
 import xbmcplugin
 import xbmcaddon
 
+from system import config as configLang
+
 
 def add_item(obj, obj_item, total=0):
     if obj is None:
@@ -464,7 +466,6 @@ class Service(object):
         pass
 
 
-
 class BaseDict(object):
     def __init__(self, addon=None):
         if not addon:
@@ -509,6 +510,48 @@ class Lang(BaseDict):
 
 # for current plugin
 lang = Lang()
+
+
+class Plural:
+    def __init__(self, addon=None):
+        self.lang = Lang(addon)
+        self.current = configLang.langcode
+
+    def parse(self, number, lang_key, sep=u'|'):
+        text = self.lang[lang_key]
+        if self.current == 'ru':
+            return self._ru(number, text, sep)
+        else:
+            return self._en(number, text, sep)
+
+    def _en(self, number, text, sep):
+        plural = text.split(sep)
+        if number < 0:
+            number *= -1
+        return self.format(number, plural[1] if number > 1 else plural[0])
+
+    def _ru(self, number, text, sep):
+        plural = text.split(sep)
+        if not number:
+            return self.format(number, plural[0])
+        if number < 0:
+            number *= -1
+        nmod10 = number - 10*int(number/10)
+        nmod100 = number - 100*int(number/100)
+        if number == 1 or (nmod10 == 1 and nmod100 != 11):
+            return self.format(number, plural[1])
+        elif nmod10 > 1 and nmod10 < 5 and nmod100 != 12 and nmod100 != 13 and nmod100 != 14:
+            return self.format(number, plural[2])
+        else:
+            return self.format(number, plural[3])
+
+    def format(self, number, text):
+        return text % number if text.find(u'%d') != -1 else text
+
+
+# for current plugin
+plural = Plural()
+
 
 class Setting(BaseDict):
     def _get(self, key):
