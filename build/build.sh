@@ -1,2 +1,2 @@
 cd `dirname $0`/../src
-cp -R ./* $HOME/Library/Application\ Support/XBMC/addons/script.module.xbmcup/
+cp -R ./* $HOME/Library/Application\ Support/Kodi/addons/script.module.xbmcup/
