@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.module.xbmcup" name="XbmcUp" version="0.0.8" provider-name="HAL9000">
     <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="xbmc.python" version="2.19.0"/>
     </requires>
     <extension library="service.py" point="xbmc.service" start="startup"/>
     <extension point="xbmc.python.module" library="lib"/>
