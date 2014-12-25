@@ -7,6 +7,7 @@ import time
 import json
 import re
 import pickle
+import threading
 
 try:
     from sqlite3 import dbapi2 as sqlite
@@ -221,6 +222,37 @@ class Cache(object):
         if expire:
             expire += int(time.time())
         self.sql.set('replace into cache(id,expire,data) values(?,?,?)', (token, expire, sqlite.Binary(pickle.dumps(data))))
+
+
+    def multi(self, prefix, ids, method, live):
+
+        def fetch(id):
+            response[prefix + id] = method(id)
+
+        if not isinstance(ids, (list, tuple)):
+            ids = [ids]
+        tokens = [prefix + x for x in ids]
+        result = self.get(tokens)
+
+        request = [x.split(':')[1] for x, y in result.iteritems() if not y]
+        if request:
+            response, pool = {}, []
+
+            for id in request:
+                pool.append(threading.Thread(target=fetch, args=(id,)))
+
+            for t in pool:
+                t.start()
+
+            for t in pool:
+                t.join()
+
+            for token, data in response.iteritems():
+                self.set(token, data, live)
+
+            result.update(response)
+
+        return dict([(x, result[prefix + x]) for x in ids])
 
 
     def import_cache(self, filename):
