@@ -18,6 +18,10 @@ sed -e "s/script.module.xbmcup\" version=\"[^\"]*\"/script\.module\.xbmcup\" ver
 mv ../../plugin.audio.lastvk/src/addon2.xml ../../plugin.audio.lastvk/src/addon.xml
 
 
+sed -e "s/script.module.xbmcup\" version=\"[^\"]*\"/script\.module\.xbmcup\" version=\"$NEW\"/g" ../../plugin.audio.lovifm/src/addon.xml > ../../plugin.audio.lovifm/src/addon2.xml
+mv ../../plugin.audio.lovifm/src/addon2.xml ../../plugin.audio.lovifm/src/addon.xml
+
+
 rm -rf ../script.module.xbmcup
 rm -f ./script.module.xbmcup.zip
 mkdir ../script.module.xbmcup
