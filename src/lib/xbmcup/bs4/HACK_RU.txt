@@ -11,7 +11,7 @@
 3. Скопировать файлы builder/__init__.py, builder/_htmlparser.py
 4. В файле builder/__init__.py заменить следующие строчки:
     - "from bs4.element import (" на "from ..element import ("
-    - "this_module = sys.modules['bs4.builder']" на "this_module = sys.modules['xbmcup.bsoup4.builder']"
+    - "this_module = sys.modules['bs4.builder']" на "this_module = sys.modules['xbmcup.bs4.builder']"
 5. В файле builder/_htmlparser.py заменить следующие строчки:
     - "from bs4.element import (" на "from ..element import ("
     - "from bs4.dammit import EntitySubstitution, UnicodeDammit" на "from ..dammit import EntitySubstitution, UnicodeDammit"

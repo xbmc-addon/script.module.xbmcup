@@ -92,5 +92,5 @@ clear = Clear()
 
 
 def html(string):
-    from bsoup4 import BeautifulSoup
+    from bs4 import BeautifulSoup
     return BeautifulSoup(string, 'html.parser')
