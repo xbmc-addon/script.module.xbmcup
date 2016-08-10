@@ -3,11 +3,10 @@
 __author__ = 'hal9000'
 __all__ = ['Button', 'Check', 'Edit', 'Fade', 'Group', 'Image', 'Label', 'List', 'Progress', 'Radio', 'Slider', 'Text']
 
-from xbmcgui import ControlButton, ControlCheckMark, ControlEdit, ControlFadeLabel, ControlGroup, ControlImage,\
+from xbmcgui import ControlButton, ControlEdit, ControlFadeLabel, ControlGroup, ControlImage,\
     ControlLabel, ControlList, ControlProgress, ControlRadioButton, ControlSlider, ControlTextBox
 
 Button = ControlButton
-Check = ControlCheckMark
 Edit = ControlEdit
 Fade = ControlFadeLabel
 Group = ControlGroup
